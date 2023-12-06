@@ -9,7 +9,7 @@ import Foundation
 import Fluent
 import Vapor
 
-final class DayRing: Content, Model {
+final class DayRing: Content, Model, Validatable {
 	static var schema: String = "dayrings"
 	
 	@ID(key: .id)
@@ -27,6 +27,9 @@ final class DayRing: Content, Model {
 	@Field(key: "standUp")
 	var standUp: Int
 	
+	@OptionalChild(for: \.$dayRing)
+	var training: Training?
+	
 	init() { }
 	init(id: UUID? = nil, date: Date, movement: Int, exercise: Int, standUp: Int) {
 		self.id = id
@@ -34,5 +37,11 @@ final class DayRing: Content, Model {
 		self.movement = movement
 		self.exercise = exercise
 		self.standUp = standUp
+	}
+	
+	static func validations(_ validations: inout Validations) {
+		validations.add("movement", as: Int.self, is: .range(1...), customFailureDescription: "Movement cannot be empty.")
+		validations.add("exercise", as: Int.self, is: .range(0...), customFailureDescription: "Movement cannot be empty.")
+		validations.add("standUp", as: Int.self, is: .range(0..<25), customFailureDescription: "Movement cannot be empty.")
 	}
 }

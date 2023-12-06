@@ -9,7 +9,8 @@ public func configure(_ app: Application) async throws {
 	
 	app.databases.use(.sqlite(.file("myringsdb.sqlite")), as: .sqlite)
 	
-	app.migrations.add()
+	app.migrations.add(CreateDayRingMigration())
+	app.migrations.add(CreateTrainingMigration())
 	
     // register routes
     try routes(app)

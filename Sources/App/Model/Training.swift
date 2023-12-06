@@ -9,6 +9,10 @@ import Foundation
 import Fluent
 import Vapor
 
+enum TrainingType: String, Codable {
+	case running, walking
+}
+
 final class Training: Content, Model {
 	static var schema: String = "trainings"
 	
@@ -27,16 +31,20 @@ final class Training: Content, Model {
 	@Field(key: "meanHR")
 	var meanHR: Int
 	
+	@Enum(key: "trainingType")
+	var trainingType: TrainingType
+	
 	@Parent(key: "ring_id")
 	var dayRing: DayRing
 	
 	init() { }
-	init(id: UUID? = nil, duration: TimeInterval, length: Double, calories: Int, meanHR: Int, ringID: UUID) {
+	init(id: UUID? = nil, duration: TimeInterval, length: Double, calories: Int, meanHR: Int, trainingType: TrainingType = .running, ringID: UUID) {
 		self.id = id
 		self.duration = duration
 		self.length = length
 		self.calories = calories
 		self.meanHR = meanHR
+		self.trainingType = trainingType
 		self.$dayRing.id = ringID
 	}
 	
