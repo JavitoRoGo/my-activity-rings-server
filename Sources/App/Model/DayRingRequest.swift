@@ -8,7 +8,7 @@
 import Foundation
 
 struct DayRingRequest: Codable {
-	let date: Date
+	let date: String
 	let movement: Int
 	let exercise: Int
 	let standUp: Int

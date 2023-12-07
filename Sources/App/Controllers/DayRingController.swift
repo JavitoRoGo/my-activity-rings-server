@@ -31,7 +31,7 @@ final class DayRingController: RouteCollection {
 		api.get("trainings", ":ring_id", use: fetchTrainingById)
 		
 		// post new training: /trainings/:ring_id/new
-		api.post("training", ":ring_id", "new", use: createNewTraining)
+		api.post("trainings", ":ring_id", "new", use: createNewTraining)
 	}
 	
 	// DAY RINGS
@@ -39,7 +39,6 @@ final class DayRingController: RouteCollection {
 	// get all the rings
 	func fetchAllRings(req: Request) async throws -> [DayRingResponse] {
 		return try await DayRing.query(on: req.db)
-			.with(\.$training)
 			.all()
 			.compactMap(DayRingResponse.init)
 	}
@@ -89,7 +88,7 @@ final class DayRingController: RouteCollection {
 			throw Abort(.badRequest)
 		}
 		let request = try req.content.decode(TrainingRequest.self)
-		let training = Training(duration: request.duration, length: request.length, calories: request.calories, meanHR: request.meanHR, trainingType: request.trainingType, ringID: ringId)
+		let training = Training(date: request.date, duration: request.duration, length: request.length, calories: request.calories, meanHR: request.meanHR, trainingType: request.trainingType, ringID: ringId)
 		
 		try await training.save(on: req.db)
 		

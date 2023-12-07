@@ -12,7 +12,7 @@ struct CreateDayRingMigration: AsyncMigration {
 	func prepare(on database: Database) async throws {
 		try await database.schema("dayrings")
 			.id()
-			.field("date", .date, .required)
+			.field("date", .string, .required)
 			.field("movement", .int, .required)
 			.field("exercise", .int, .required)
 			.field("standUp", .int, .required)

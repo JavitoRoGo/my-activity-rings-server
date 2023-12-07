@@ -8,6 +8,7 @@
 import Foundation
 
 struct TrainingRequest: Codable {
+	let date: String
 	let duration: TimeInterval
 	let length: Double
 	let calories: Int
