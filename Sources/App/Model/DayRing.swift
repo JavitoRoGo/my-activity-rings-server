@@ -16,7 +16,7 @@ final class DayRing: Content, Model, Validatable {
 	var id: UUID?
 	
 	@Field(key: "date")
-	var date: String
+	var date: Date
 	
 	@Field(key: "movement")
 	var movement: Int
@@ -28,7 +28,7 @@ final class DayRing: Content, Model, Validatable {
 	var standUp: Int
 	
 	init() { }
-	init(id: UUID? = nil, date: String, movement: Int, exercise: Int, standUp: Int) {
+	init(id: UUID? = nil, date: Date, movement: Int, exercise: Int, standUp: Int) {
 		self.id = id
 		self.date = date
 		self.movement = movement

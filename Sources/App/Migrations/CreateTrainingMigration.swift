@@ -17,7 +17,7 @@ struct CreateTrainingMigration: AsyncMigration {
 		
 		try await database.schema("trainings")
 			.id()
-			.field("date", .string, .required)
+			.field("date", .date, .required)
 			.field("duration", .double, .required)
 			.field("length", .double, .required)
 			.field("calories", .int, .required)

@@ -14,7 +14,7 @@ enum TrainingType: String, Codable {
 
 struct TrainingResponse: Codable {
 	let id: UUID
-	let date: String
+	let date: Date
 	let duration: TimeInterval
 	let length: Double
 	let calories: Int

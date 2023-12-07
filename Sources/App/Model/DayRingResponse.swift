@@ -10,7 +10,7 @@ import Vapor
 
 struct DayRingResponse: Codable {
 	let id: UUID
-	let date: String
+	let date: Date
 	let movement: Int
 	let exercise: Int
 	let standUp: Int

@@ -16,7 +16,7 @@ final class Training: Content, Model {
 	var id: UUID?
 	
 	@Field(key: "date")
-	var date: String
+	var date: Date
 	
 	@Field(key: "duration")
 	var duration: TimeInterval
@@ -37,7 +37,7 @@ final class Training: Content, Model {
 	var dayRing: DayRing
 	
 	init() { }
-	init(id: UUID? = nil, date: String, duration: TimeInterval, length: Double, calories: Int, meanHR: Int, trainingType: TrainingType = .running, ringID: UUID) {
+	init(id: UUID? = nil, date: Date, duration: TimeInterval, length: Double, calories: Int, meanHR: Int, trainingType: TrainingType = .running, ringID: UUID) {
 		self.id = id
 		self.date = date
 		self.duration = duration
