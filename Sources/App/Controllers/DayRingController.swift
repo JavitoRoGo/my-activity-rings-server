@@ -19,6 +19,12 @@ final class DayRingController: RouteCollection {
 		
 		// post new ring: /new
 		api.post("new", use: createNewDayRing)
+		
+		// delete a ring /delete/:ring_id
+		api.delete("delete", ":ring_id", use: deleteOneRing)
+		
+		// delete all rings /delete/all
+		api.delete("delete", "all", use: deleteAllRings)
 	}
 	
 	
@@ -39,5 +45,33 @@ final class DayRingController: RouteCollection {
 		guard let ringResponse = DayRingResponse(dayRing) else { throw Abort(.internalServerError) }
 		
 		return ringResponse
+	}
+	
+	// delete a ring
+	func deleteOneRing(req: Request) async throws -> DayRingResponse {
+		guard let ringId = req.parameters.get("ring_id", as: UUID.self) else {
+			throw Abort(.badRequest)
+		}
+		
+		guard let ringToDelete = try await DayRing.find(ringId, on: req.db) else {
+			throw Abort(.notFound)
+		}
+		
+		try await ringToDelete.delete(on: req.db)
+		
+		guard let response = DayRingResponse(ringToDelete) else {
+			throw Abort(.internalServerError)
+		}
+		
+		return response
+	}
+	
+	// delete all rings
+	func deleteAllRings(req: Request) async throws -> [DayRingResponse] {
+		let all = try await DayRing.query(on: req.db)
+			.all()
+		try await all.delete(on: req.db)
+		
+		return all.compactMap(DayRingResponse.init)
 	}
 }
