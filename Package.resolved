@@ -1,6 +1,15 @@
 {
   "pins" : [
     {
+      "identity" : "activityringsshareddto",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/JavitoRoGo/ActivityRingsSharedDTO",
+      "state" : {
+        "branch" : "main",
+        "revision" : "a444d3698521811366a5534368699c0e1523f677"
+      }
+    },
+    {
       "identity" : "async-http-client",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/swift-server/async-http-client.git",

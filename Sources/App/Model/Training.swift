@@ -5,6 +5,7 @@
 //  Created by Javier Rodríguez Gómez on 4/12/23.
 //
 
+import ActivityRingsSharedDTO
 import Foundation
 import Fluent
 import Vapor
